@@ -1,4 +1,6 @@
+# функция с параметрами
 def create_apartment(title, number_of_rooms, area, region, street, house, apartment_number, price):
+    # словарь или Json
     return {
         'title': title,
         'number_of_rooms': number_of_rooms,
@@ -15,7 +17,7 @@ def add_apartment(container, apartment):
     # append Добавляет указанный элемент в конец списка.
     container.append(apartment)
 
-
+#
 def search_apartments(container, search_regions=None, search_price=None):
     result = container
 

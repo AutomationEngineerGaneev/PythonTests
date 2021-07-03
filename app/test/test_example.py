@@ -1,7 +1,7 @@
 from app.lib import create_apartment, add_apartment, search_apartments
 
-
 def test_create_apartment():
+    # словарь или Json
     data = {
         'title': '2-х комнатная квартира',
         'number_of_rooms': 2,
@@ -45,6 +45,7 @@ def test_add_one_apartment_to_empty_container():
 
     assert len(container) == 1
     assert apartment in container
+    # print(len(container) == 1,apartment in container)
 
 
 # тестовый поиск квартир без параметров поиска
