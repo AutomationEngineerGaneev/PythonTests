@@ -12,7 +12,7 @@ def test_create_apartment():
         'apartment_number': '44',
         'price': 4_300_000
     }
-
+    # A -> Act
     result = create_apartment(
         data['title'],
         data['number_of_rooms'],
@@ -23,13 +23,15 @@ def test_create_apartment():
         data['apartment_number'],
         data['price']
     )
-
+    # сравниваем содержимое
+    # A -> Assert
     assert result == data
 
 # тест добавить одну квартиру в пустой контейнер
 def test_add_one_apartment_to_empty_container():
+    # пустой контейнер
     container = []
-
+    # создаем сущность в виде квартиры
     apartment = create_apartment(
         '2-х комнатная квартира',
         2,
@@ -40,7 +42,7 @@ def test_add_one_apartment_to_empty_container():
         '44',
         4_300_000
     )
-
+    # вызываем функцию add_apartment
     add_apartment(container, apartment)
 
     assert len(container) == 1
@@ -94,11 +96,102 @@ def test_search_apartments_without_search_parameters():
 
     assert result == expected
 
-# def test_simple():
-#     mylist = [1, 2, 3, 4, 5]
-#     assert 3 in mylist
-#
-#
-# def test_simple1():
-#     mylist = [1, 2, 3, 4, 5]
-#     assert 10 in mylist
+
+# тестовый поиск квартир c параметрами поиска региона
+def test_search_apartments_with_search_regions_parameter():
+    container = []
+    apartment1 = create_apartment(
+        '2-х комнатная квартира',
+        2,
+        47,
+        'Вахитовский район',
+        'Вишневского',
+        '51',
+        '44',
+        4_300_000
+    )
+
+    apartment2 = create_apartment(
+        '1 комнатная квартира',
+        1,
+        27,
+        'Авиастроительный район',
+        'Лукина',
+        '1',
+        '25',
+        2_000_000
+    )
+
+    apartment3 = create_apartment(
+        '1 комнатная квартира',
+        1,
+        35,
+        'Приволжский район',
+        'Профессора Камая',
+        '8',
+        '45',
+        3_200_000
+    )
+
+    add_apartment(container, apartment1)
+    add_apartment(container, apartment2)
+    add_apartment(container, apartment3)
+
+    expected = [apartment1, apartment3]
+
+    result = search_apartments(container, search_regions=['Вахитовский район', 'Приволжский район'])
+
+    assert result == expected
+
+
+# тестовый поиск квартир c параметрами поиска региона и цены
+def test_search_apartments_with_search_regions_and_price_parameter():
+    container = []
+    apartment1 = create_apartment(
+        '2-х комнатная квартира',
+        2,
+        47,
+        'Вахитовский район',
+        'Вишневского',
+        '51',
+        '44',
+        4_300_000
+    )
+
+    apartment2 = create_apartment(
+        '1 комнатная квартира',
+        1,
+        27,
+        'Авиастроительный район',
+        'Лукина',
+        '1',
+        '25',
+        2_000_000
+    )
+
+    apartment3 = create_apartment(
+        '1 комнатная квартира',
+        1,
+        35,
+        'Приволжский район',
+        'Профессора Камая',
+        '8',
+        '45',
+        3_200_000
+    )
+
+    add_apartment(container, apartment1)
+    add_apartment(container, apartment2)
+    add_apartment(container, apartment3)
+
+    container_before_search = container[:]
+    expected = [apartment3]
+
+    result = search_apartments(
+        container,
+        search_regions=['Вахитовский район', 'Приволжский район'],
+        search_price=3_500_000
+    )
+
+    assert result == expected
+    assert container_before_search == container

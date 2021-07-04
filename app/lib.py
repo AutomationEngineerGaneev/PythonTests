@@ -17,11 +17,16 @@ def add_apartment(container, apartment):
     # append Добавляет указанный элемент в конец списка.
     container.append(apartment)
 
-#
+
+# поиск квартир по па параметрам региона и цены
 def search_apartments(container, search_regions=None, search_price=None):
+    # результат поиска сравниваем с содержимым контейнера
     result = container
 
     if search_regions is not None:
+        # Map применяет функцию к каждому элементу последовательности
+        # и возвращает итератор с результатами.
+        # Метод strip() возвращает копию строки
         search_regions = map(str.strip, search_regions)
         search_regions = list(map(str.lower, search_regions))
 
